@@ -1,98 +1,100 @@
-<html>
-  <head>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
-    <link rel="stylesheet" href="site/site.css" />
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8">
+  <title>Dicee</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster" rel="stylesheet">
+  <script src="node_modules/confetti-js/dist/index.min.js"></script>
 
-    <canvas id="confetti-holder"></canvas>
-    
-    <div id="settings">
-      <h2>Settings</h2>
-      <div class="l">
-          <form>
-            <div>
-              <label>Target canvas Id</label>
-              <input type="text" id="canvas-id" />
-            </div>
-            <div>
-              <label>Max confetti</label>
-              <input type="number" id="max-confetti" />
-            </div>
-            <div>
-              <label>Type of confetti</label>
-              <ul>
-                <li><input type="checkbox" id="square" value="square" /> <label for="square">Square</label></li>
-                <li><input type="checkbox" id="triangle" value="triangle" /> <label for="triangle">Triangle</label></li>
-                <li><input type="checkbox" id="line" value="line" /> <label for="line">Lines</label></li>
-                <li><input type="checkbox" id="circle" value="circle" /> <label for="circle">Circle</label></li>
-                <li><input type="checkbox" id="rotate" value="rotate" /> <label for="rotate">Rotate</label></li>
-                <li><input type="checkbox" id="svg" value="svg" /> <label for="svg">SVG (site/hat.svg)</label></li>
-                  <ul>
-                    <li><label for="svg-size">SVG size:</label> <input type="text" id="svg-size" value="25" /></li>
-                    <li><label for="svg-weight">SVG rarity:</label> <input type="text" id="svg-weight" value="0.2" /></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <label>Colors (RGB, [r,g,b],[r,g,b] ...)</label>
-              <input type="text" id="colors" value="" />
-            </div>
-            <div>
-                <label>Clock</label>
-                <input type="text" id="clock" value="" />
-            </div>
-            <div>
-                <label>Prop size</label>
-                <input type="number" id="size" value="" />
-            </div>
-            <div>
-              <label>Canvas Width (defaults is window width)</label>
-              <input type="number" id="width" value="" />
-            </div>
-            <div>
-              <label>Canvas Height (defaults is window height)</label>
-              <input type="number" id="height" value="" />
-            </div>
-            <div>
-              <div><input type="checkbox" id="animate" value="animate" /><label for="animate">Animate</label></div>
-            </div>
-            <div>
-              <div><input type="checkbox" id="start_from_edge" value="start_from_edge" /><label for="start_from_edge">Start from edge</label></div>
-            </div>
-            <div>
-              <div><input type="checkbox" id="respawn" value="respawn" /><label for="respawn">Respawn confetti</label></div>
-            </div>
-            
-            <div>
-              <br />
-              <input type="button" onclick="app.render()" id="btnRender" value="Render" />
+  <style>
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 60px;
+    }
 
-              <input type="button" onclick="app.clear()" id="btnClear" value="Clear" />
-            </div>
-          </form>
-          <div>
-            <hr />
-            <a href="examples" target="_blank" class="hollow" />Examples</a>
-            <a href="https://github.com/Agezao/confetti-js" target="_blank" class="hollow" />Github</a>
-          </div>
-      </div>
-      <div class="r">
-        <h4>Json config output</h4>
-        <div>
-          <pre id="json-output">
-            {}
-          </pre>
-        </div>
-      </div>
+    .primary {
+      background-color: powderblue;
+      font-size: large;
+      border-radius: 10px;
+      height: 60px;
+      width: 120px;
+      color: white;
+    }
+
+    .primary:hover {
+      background-color: orange;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    .visi {
+      color: #fff121a6;
+      font-family: cursive;
+    }
+  </style>
+
+  <script>
+    let cnt = 0;
+    let myName;
+    const onclickhandler = () => {
+
+      if (cnt == 0) {
+        myName = prompt("Enter Player 1 name");
+        cnt++;
+      }
+
+      let n1 = Math.floor(Math.random() * 6) + 1;
+      let n2 = Math.floor(Math.random() * 6) + 1;
+
+      document.querySelector('.img1').src = `./images/dice${n1}.png`;
+      document.querySelector('.img2').src = `./images/dice${n2}.png`;
+
+      if (n1 > n2) {
+        document.querySelector('div h2').innerHTML = "Congrats " + myName + " You Wins 🎊";
+      } else if (n1 == n2) {
+        document.querySelector('div h2').innerHTML = "Draw";
+      }
+      else {
+        document.querySelector('div h2').innerHTML = "Bot Wins";
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Roll On Me</h1>
+
+    <h2 class="visi"></h2>
+
+    <div class="dice">
+      <p>You</p>
+      <img class="img1" src="./images/dice1.png">
     </div>
 
-    <!-- Importing generator -->
-    <script type="text/javascript" src="dist/index.min.js"></script>
-    <!-- Starting site logic -->
-    <script type="text/javascript" src="site/site.js"></script>
-  </body>
+    <div class="dice">
+      <p>Bot</p>
+      <img class="img2" src="./images/dice1.png">
+    </div>
+
+  </div>
+  <div class="btn">
+    <button class="primary" onclick="onclickhandler()">
+      Roll It
+    </button>
+  </div>
+
+</body>
+
+<footer>
+  www 🎲 Roll The Dice 🎲 com
+</footer>
+
 </html>
